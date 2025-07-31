@@ -35,7 +35,6 @@ const CharacterForm = ({ showModal, closeModal, addCharacter, editingCharacter, 
     }
     setPersonaje('');
     setAnime('');
-    // closeModal();
   };
 
 

@@ -8,9 +8,6 @@ const App = () => {
   const [editingCharacter, setEditingCharacter] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // const handleCloseModal = () => setShowModal(false);
-  // const handleShowModal = () => setShowModal(true);
-
   // Leer datos desde localStorage al iniciar
   useEffect(() => {
     const stored = localStorage.getItem('characters');
