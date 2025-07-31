@@ -1,11 +1,6 @@
 import { Button, Table } from "react-bootstrap";
 
-const CharacterList = ({ handleShowModal, characters, onEdit, onDelete }) => {
-  
-  const handleEdit = (char) => {
-    handleShowModal(true);
-    onEdit(char)
-  }
+const CharacterList = ({ characters, onEdit, onDelete }) => {
   
   return (
     <Table>
@@ -24,7 +19,7 @@ const CharacterList = ({ handleShowModal, characters, onEdit, onDelete }) => {
               <td><strong>{char.personaje}</strong></td>
               <td>{char.anime}</td>
               <td>
-                <Button className="me-3" variant="primary" onClick={() => handleEdit(char)}>Editar</Button>
+                <Button className="me-3" variant="primary" onClick={() => onEdit(char)}>Editar</Button>
                 <Button variant="danger" onClick={() => onDelete(char.id)}>Eliminar</Button>
               </td>
             </tr>
