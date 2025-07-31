@@ -6,10 +6,10 @@ import { Button } from 'react-bootstrap';
 const App = () => {
   const [characters, setCharacters] = useState([]);
   const [editingCharacter, setEditingCharacter] = useState(null);
-
   const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
+
+  // const handleCloseModal = () => setShowModal(false);
+  // const handleShowModal = () => setShowModal(true);
 
   // Leer datos desde localStorage al iniciar
   useEffect(() => {
@@ -26,6 +26,7 @@ const App = () => {
 
   const addCharacter = (character) => {
     setCharacters([...characters, character]);
+    setShowModal(false);
   };
 
   const updateCharacter = (updatedCharacter) => {
@@ -33,7 +34,18 @@ const App = () => {
       char.id === updatedCharacter.id ? updatedCharacter : char
     ));
     setEditingCharacter(null);
+    setShowModal(false)
   };
+  
+  const handleEdit = (character) => {
+    setEditingCharacter(character);
+    setShowModal(true);
+  }
+
+  const handleAddNew = () => {
+    setEditingCharacter(null);
+    setShowModal(true);
+  }
 
   const deleteCharacter = (id) => {
     setCharacters(characters.filter(char => char.id !== id));
@@ -43,24 +55,24 @@ const App = () => {
     <div className="container">
       <h1 className='mb-5'>CRUD de personajes de anime</h1>
 
-      <Button className="mb-4" variant="success" onClick={handleShowModal}>
+      <Button className="mb-4" variant="success" onClick={handleAddNew}>
         Agregar personaje
       </Button>
 
+      <CharacterList 
+        characters={characters} 
+        onEdit={handleEdit}
+        onDelete={deleteCharacter}
+      />
+
       <CharacterForm 
         showModal={showModal}
-        handleClose={handleCloseModal}
+        closeModal={() => setShowModal(false)}
         addCharacter={addCharacter} 
         editingCharacter={editingCharacter}
         updateCharacter={updateCharacter}
       />
 
-      <CharacterList 
-        handleShowModal={handleShowModal}
-        characters={characters} 
-        onEdit={setEditingCharacter}
-        onDelete={deleteCharacter}
-      />
     </div>
   );
 };

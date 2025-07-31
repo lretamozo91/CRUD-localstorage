@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Form, Modal } from "react-bootstrap";
 
-const CharacterForm = ({ showModal, handleClose, addCharacter, editingCharacter, updateCharacter }) => {
+const CharacterForm = ({ showModal, closeModal, addCharacter, editingCharacter, updateCharacter }) => {
   
   const [personaje, setPersonaje] = useState('');
   const [anime, setAnime] = useState('');
@@ -35,18 +35,18 @@ const CharacterForm = ({ showModal, handleClose, addCharacter, editingCharacter,
     }
     setPersonaje('');
     setAnime('');
-    handleClose();
+    // closeModal();
   };
 
 
   return (
     <>
-      <Modal show={showModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Insertar registro</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
+      <Modal show={showModal} onHide={closeModal}>
+        <Form onSubmit={handleSubmit}>
+          <Modal.Header closeButton>
+            <Modal.Title>{editingCharacter ? 'Editar personaje' : 'Agregar personaje'}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <Form.Group className="mb-3" controlId="formBasicPersonaje">
               <Form.Label>Personaje</Form.Label>
               <Form.Control 
@@ -66,13 +66,14 @@ const CharacterForm = ({ showModal, handleClose, addCharacter, editingCharacter,
                 onChange={(e) => setAnime(e.target.value)}  
               />
             </Form.Group>
-
-            <Button type="button" variant="secondary" onClick={handleClose}>Cancelar</Button>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="button" variant="secondary" onClick={closeModal}>Cancelar</Button>
             <Button variant="primary" type="submit">
               {editingCharacter ? 'Actualizar' : 'Agregar'}
             </Button>
-          </Form>
-        </Modal.Body>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );
